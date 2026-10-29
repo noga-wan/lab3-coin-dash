@@ -5,7 +5,8 @@ press P to pause and R to restart. Spinning stars appear every few seconds and g
 a blue shield (drones can't catch you), a green speed boost, or a white freeze that stops the drones.
 This is deliberately small so you can add features during the lab.
 
-**Play it here:** https://www.avivz.net/coin-dash/
+**Play this version:** run it locally (below), e.g. `python3 -m http.server 8000` and open `http://localhost:8000`.
+The original starter, without pause, sounds or power-ups, is at https://www.avivz.net/coin-dash/.
 
 ## Run it locally
 
