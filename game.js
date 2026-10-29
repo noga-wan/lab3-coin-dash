@@ -29,6 +29,7 @@ class CoinDash extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.coin, () => {
       if (this.finished) return;
       this.score++;
+      this.playScoreSound();
       this.placeCoin();
     });
     this.physics.add.overlap(this.player, this.drones, () => this.finish('A drone caught you!'));
@@ -47,6 +48,27 @@ class CoinDash extends Phaser.Scene {
     } while (Phaser.Math.Distance.Between(x, y, this.player.x, this.player.y) < 60);
     this.coin.setPosition(x, y);
     this.coin.body.reset(x, y);
+  }
+
+  playScoreSound() {
+    // Only the Web Audio sound manager has a context; without it the game stays silent.
+    const ctx = this.sound.context;
+    if (!ctx) return;
+    const s = COIN_DASH.sound;
+    const notes = this.score % s.milestoneEvery === 0 ? s.milestoneNotes : s.coinNotes;
+    notes.forEach((frequency, i) => {
+      const start = ctx.currentTime + i * s.noteSeconds;
+      const stop = start + s.noteSeconds * 2.5;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = frequency;
+      gain.gain.setValueAtTime(s.volume, start);
+      gain.gain.exponentialRampToValueAtTime(0.001, stop);
+      osc.connect(gain).connect(this.sound.destination);
+      osc.start(start);
+      osc.stop(stop);
+    });
   }
 
   update() {
