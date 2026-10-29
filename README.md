@@ -1,7 +1,7 @@
 # Coin Dash — Lab 3 starter
 
 Collect coins, avoid drones, and survive a 45-second round. Move with arrow keys or WASD;
-press R to restart. Spinning stars appear every few seconds and give a short power-up:
+press P to pause and R to restart. Spinning stars appear every few seconds and give a short power-up:
 a blue shield (drones can't catch you), a green speed boost, or a white freeze that stops the drones.
 This is deliberately small so you can add features during the lab.
 
